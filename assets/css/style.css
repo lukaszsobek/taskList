@@ -88,11 +88,12 @@ span {
 }
 
 li:hover span {
-	width: 60px;
+	width: 40px;
 	visibility: visible;
-	opacity: 1;
+	opacity: 0.5;
 }
 
-span:hover {
+li:hover span:hover {
 	background: #c00;
+	opacity: 1;
 }
