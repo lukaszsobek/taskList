@@ -55,14 +55,17 @@ li {
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none;          /* Likely future */
-
-	height: 60px;
-	line-height: 60px;
+	display: flex;
+	justify-content: space-between;
 	padding-left: 20px;
-
 	color: #666;
 	font-weight: bold;
 
+}
+
+li .textContent {
+	line-height: 30px;
+	margin: 20px 0 20px 0;
 }
 
 li:nth-child(odd) {		background-color: #eee; }
@@ -73,27 +76,33 @@ li:nth-child(even) {	background-color: #fff; }
 	color: #666;
 }
 
-span {
+li .deleteButton {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	align-self: stretch;
+
 	color: #fff;
 	background-color: #900;
 	font-weight: bold;
-	height: 60px;
 	width: 0;
-	float: right;
+	padding: 10px;
 	text-align: center;
 	transition: 0.2s linear;
 	visibility: hidden;
 	opacity: 0;
+	flex: 0;
 
 }
 
-li:hover span {
+li:hover .deleteButton {
 	width: 40px;
 	visibility: visible;
 	opacity: 0.5;
 }
 
-li:hover span:hover {
+li:hover .deleteButton:hover {
 	background: #c00;
 	opacity: 1;
 }

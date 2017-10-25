@@ -29,8 +29,8 @@ function loadLocalStore() {
 	let itemList = getItems()
 
 	// append list
-	itemList.map(function(x) {
-		$("ul").append("<li>" + x + "<span><i class='fa fa-trash-o' aria-hidden='true'></i></span></li>")
+	itemList.map(function(item) {
+		$("ul").append("<li><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
 
 }
@@ -67,7 +67,7 @@ $("ul").on("click", "li", function() {
 
 
 // remove item on click
-$("ul").on("click", "span", function(e) {
+$("ul").on("click", ".deleteButton", function(e) {
 	$(this).parent().fadeOut(500, function() {
 		deleteItem($(this).text())
 		$(this).remove()
@@ -83,7 +83,7 @@ $("input[type='search']").on("keypress", function(e) {
 		let textValue = $(this).val()
 		saveItem(textValue)
 		$(this).val("")
-		$("ul").append("<li>" + textValue + "<span><i class='fa fa-trash-o' aria-hidden='true'></i></span></li>")
+		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 
 	} 
 })
