@@ -37,7 +37,7 @@ textarea {
 	font-size: 130%;
 	width: 100%;
 	word-break: break-word;
-	padding: 20px 30px 0 20px;
+	padding: 20px;
 }
 
 textarea:focus {
