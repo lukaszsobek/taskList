@@ -34,13 +34,13 @@ function loadLocalStore() {
 
 	// append list
 	itemList.map(function(item) {
+		item = item.replace(/(?:\r\n|\r|\n)/g, '<br />');
 		$("ul").append("<li draggable='true'><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
 }
 
 function saveItem(item) {
 // save item to local storage
-
 	let itemList = getItems()
 	itemList.push(item)
 	setItems(itemList)
@@ -92,11 +92,12 @@ $("textarea").on("keypress", function(e) {
 
 
 		let textValue = $(this).val()
+
 		saveItem(textValue)
 		$(this).val("")
 		e.preventDefault() // otherwise the enter ends up in the textarea
 		autosize.update($('textarea'))
-		console.log(this.val)
+		textValue = textValue.replace(/(?:\r\n|\r|\n)/g, '<br />');
 		$("ul").append("<li draggable='true'><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 
 	} 
