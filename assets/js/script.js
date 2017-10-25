@@ -30,11 +30,10 @@ function loadLocalStore() {
 
 	// append list
 	itemList.map(function(item) {
-		$("ul").append("<li><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
+		$("ul").append("<li draggable='true'><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
 
 }
-
 
 function saveItem(item) {
 // save item to local storage
@@ -60,9 +59,16 @@ function deleteItem(searchText) {
 }
 
 
+
+
 // mark as done with css class
 $("ul").on("click", "li", function() {
 	$(this).toggleClass("markedDone")
+})
+
+// handles dargging
+$("ul").on("dragstart", "li", function(e) {
+	console.log(e)
 })
 
 
@@ -83,7 +89,7 @@ $("input[type='search']").on("keypress", function(e) {
 		let textValue = $(this).val()
 		saveItem(textValue)
 		$(this).val("")
-		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
+		$("ul").append("<li draggable='true'><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 
 	} 
 })

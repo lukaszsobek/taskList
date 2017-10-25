@@ -28,7 +28,7 @@ header {
 	font-size: 150%;
 	padding: 20px;
 	text-align: center;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 input {
@@ -36,7 +36,7 @@ input {
 	border: 3px solid #fff;
 	font-size: 130%;
 	width: 100%;
-	padding: 20px;
+	padding: 20px 30px 20px 20px;
 }
 
 input:focus {
