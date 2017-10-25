@@ -3,6 +3,10 @@
 let LocalKey = "lukaszsobek_taskList_application"
 
 
+// make text input grow and shrink
+autosize($('textarea'));
+
+
 function getItems() {
 // returns all items from local storage or []
 
@@ -32,7 +36,6 @@ function loadLocalStore() {
 	itemList.map(function(item) {
 		$("ul").append("<li draggable='true'><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
-
 }
 
 function saveItem(item) {
@@ -41,7 +44,6 @@ function saveItem(item) {
 	let itemList = getItems()
 	itemList.push(item)
 	setItems(itemList)
-	
 }
 
 
@@ -55,7 +57,6 @@ function deleteItem(searchText) {
 	itemList.splice(theKey,1)
 
 	setItems(itemList)
-
 }
 
 
@@ -84,11 +85,18 @@ $("ul").on("click", ".deleteButton", function(e) {
 
 
 // add new item to the ul list 
-$("input[type='search']").on("keypress", function(e) {
-	if(e.which == 13 && $(this).val() != "") {
+$("textarea").on("keypress", function(e) {
+	if(e.which == 13
+		&& $(this).val() != ""
+		&& !e.shiftKey) {
+
+
 		let textValue = $(this).val()
 		saveItem(textValue)
 		$(this).val("")
+		e.preventDefault() // otherwise the enter ends up in the textarea
+		autosize.update($('textarea'))
+		console.log(this.val)
 		$("ul").append("<li draggable='true'><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 
 	} 

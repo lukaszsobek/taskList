@@ -26,20 +26,21 @@ header {
 	color: #fff;
 	font-weight: bold;
 	font-size: 150%;
-	padding: 20px;
+	padding: 10px;
 	text-align: center;
 	/*text-transform: uppercase;*/
 }
 
-input {
+textarea {
 	box-sizing: border-box;
 	border: 3px solid #fff;
 	font-size: 130%;
 	width: 100%;
-	padding: 20px 30px 20px 20px;
+	word-break: break-word;
+	padding: 20px 30px 0 20px;
 }
 
-input:focus {
+textarea:focus {
 	border: 3px solid #B8BAC8;
 	outline: none;
 }
