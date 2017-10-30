@@ -7,6 +7,23 @@ let LocalKey = "lukaszsobek_taskList_application"
 autosize($('textarea'));
 
 
+// enable sort
+const el = document.getElementById('items');
+const sortable = new Sortable.create(el, {
+	onEnd: (e) => {
+
+		const newList = []
+		const shownList = e.to.querySelectorAll(".textContent")
+		shownList.forEach((item) => {
+			newList.push(item.textContent)
+		})
+		setItems(newList)
+		
+		}
+	}
+);
+
+
 function getItems() {
 // returns all items from local storage or []
 
@@ -35,7 +52,7 @@ function loadLocalStore() {
 	// append list
 	itemList.map(function(item) {
 		item = item.replace(/(?:\r\n|\r|\n)/g, '<br />');
-		$("ul").append("<li draggable='true'><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
+		$("ul").append("<li><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
 }
 
@@ -60,16 +77,16 @@ function deleteItem(searchText) {
 }
 
 
-
-
-// mark as done with css class
+// edit item
 $("ul").on("click", "li", function() {
-	$(this).toggleClass("markedDone")
-})
+	//$(this).toggleClass("markedDone")
+	let test = $(this).find("div.textContent")
+	console.log(test[0])
 
-// handles dargging
-$("ul").on("dragstart", "li", function(e) {
-	console.log(e)
+	// get value of div
+	// replace div with textarea
+	// save on enter
+
 })
 
 
@@ -98,7 +115,7 @@ $("textarea").on("keypress", function(e) {
 		e.preventDefault() // otherwise the enter ends up in the textarea
 		autosize.update($('textarea'))
 		textValue = textValue.replace(/(?:\r\n|\r|\n)/g, '<br />');
-		$("ul").append("<li draggable='true'><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
+		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 
 	} 
 })
