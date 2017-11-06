@@ -4,19 +4,18 @@ body {
 	font-size: 16px;
 	font-family: "Veranda", sans-serif;
 	box-sizing: border-box;
-
 	background: #4568dc; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4568dc, #b06ab3); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4568dc, #b06ab3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+	}
 
 .container {
 	background-color: #eee;
 	box-shadow: 0 0 4px rgba(0,0,0,0.4);
-	border-radius: 10px 10px 0 0;
+	border-radius: 10px;
 	max-width: 400px;
 	margin: 200px auto;
-}
+	}
 
 /* Items in order of appearance */
 
@@ -28,8 +27,7 @@ header {
 	font-size: 150%;
 	padding: 10px;
 	text-align: center;
-	/*text-transform: uppercase;*/
-}
+	}
 
 #taskInput {
 	box-sizing: border-box;
@@ -40,18 +38,18 @@ header {
 	height: 30px;
 	line-height: 30px;
 	padding: 20px;
-}
+	}
 
 #taskInput:focus {
 	border: 3px solid #B8BAC8;
 	outline: none;
-}
+	}
 
 ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-}
+	}
 
 li {
 	-webkit-user-select: none;  /* Chrome all / Safari all */
@@ -63,21 +61,16 @@ li {
 	padding-left: 20px;
 	color: #666;
 	font-weight: bold;
-
-}
+	}
 
 li .textContent {
 	line-height: 30px;
 	margin: 20px 0 20px 0;
-}
+	}
 
 li:nth-child(odd) {		background-color: #eee; }
 li:nth-child(even) {	background-color: #fff; }
-
-.markedDone {
-	text-decoration: line-through;
-	color: #666;
-}
+li:last-child { border-radius: 0 0 10px 10px; }
 
 li .deleteButton {
 	display: flex;
@@ -96,19 +89,22 @@ li .deleteButton {
 	visibility: hidden;
 	opacity: 0;
 	flex: 0;
+	}
 
-}
+li:last-child .deleteButton {
+	border-radius: 0 0 10px 0;
+	}
 
 li:hover .deleteButton {
 	width: 40px;
 	visibility: visible;
 	opacity: 0.5;
-}
+	}
 
 li:hover .deleteButton:hover {
 	background: #c00;
 	opacity: 1;
-}
+	}
 
 .itemEdit {
 	box-sizing: border-box;
@@ -119,4 +115,4 @@ li:hover .deleteButton:hover {
 	line-height: 30px;
 	padding: 20px;
 	margin-left: -20px;
-}
+	}

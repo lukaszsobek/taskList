@@ -3,13 +3,10 @@
 const LocalKey = "lukaszsobek_taskList_application"
 const varStore = {}
 
-
-// make text input grow and shrink
-//autosize($('#taskInput, .itemEdit'));
+// enable autosizing textareas
 autosize($('textarea'));
 
-
-// enable sort
+// enable drag & drop items
 const el = document.getElementById('items');
 const sortable = new Sortable.create(el, {
 	onEnd: (e) => {
@@ -26,23 +23,23 @@ const sortable = new Sortable.create(el, {
 );
 
 
-function getItems() {
 // returns all items from local storage or []
+function getItems() {
 	let itemList = localStorage.getItem(LocalKey)
 	itemList = itemList ? JSON.parse(itemList) : []
 	return itemList
 }
 
 
-function setItems(itemList) {
 // saves a list of items to the local storage
+function setItems(itemList) {
 	itemList = JSON.stringify(itemList)
 	localStorage.setItem(LocalKey,itemList)
 }
 
 
-function loadLocalStore() {
 // populate list with items from local storage
+function loadLocalStore() {
 	let itemList = getItems()
 	itemList.map(function(item) {
 		item = item.replace(/(?:\r\n|\r|\n)/g, '<br />');
@@ -51,16 +48,16 @@ function loadLocalStore() {
 }
 
 
-function saveItem(item) {
 // save item to local storage
+function saveItem(item) {
 	let itemList = getItems()
 	itemList.push(item)
 	setItems(itemList)
 }
 
 
-function deleteItem(searchText) {
 // delete an item
+function deleteItem(searchText) {
 	let itemList = getItems()
 	let theKey = itemList.indexOf(searchText)
 	itemList.splice(theKey,1)
@@ -91,14 +88,13 @@ $("ul").on("blur", "textarea", function(e) {
 })
 
 
-// remove item on click
+// remove item on delete click
 $("ul").on("click", ".deleteButton", function(e) {
 	$(this).parent().fadeOut(500, function() {
 		deleteItem($(this).text())
 		$(this).remove()
 	})
 	e.stopPropagation()
-
 })
 
 
