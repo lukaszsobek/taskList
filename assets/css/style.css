@@ -31,7 +31,7 @@ header {
 	/*text-transform: uppercase;*/
 }
 
-textarea {
+#taskInput {
 	box-sizing: border-box;
 	resize: none;
 	border: 3px solid #fff;
@@ -42,7 +42,7 @@ textarea {
 	padding: 20px;
 }
 
-textarea:focus {
+#taskInput:focus {
 	border: 3px solid #B8BAC8;
 	outline: none;
 }
@@ -108,4 +108,15 @@ li:hover .deleteButton {
 li:hover .deleteButton:hover {
 	background: #c00;
 	opacity: 1;
+}
+
+.itemEdit {
+	box-sizing: border-box;
+	resize: none;
+	border: 3px solid #fff;
+	font-size: 130%;
+	width: 100%;
+	line-height: 30px;
+	padding: 20px;
+	margin-left: -20px;
 }
