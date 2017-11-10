@@ -77,15 +77,25 @@ $("ul").on("dblclick", "li", function() {
 	txtArea[0].focus()
 })
 
-// save item after editing
+// handle returning to normal state after edit
 $("ul").on("blur", "textarea", function(e) {
 	const txtArea = e.target
 	const theDiv = $("<div />")
 	theDiv.addClass("textContent")
-	theDiv.text(varStore.textContent)
+	updateValue(varStore.textContent, txtArea.value)
+	theDiv.text(txtArea.value)
 	txtArea.replaceWith(theDiv[0])
-	//
+	
 })
+
+
+// update item
+function updateValue(oldValue,newValue) {
+	const itemList = getItems()
+	const itemId = itemList.indexOf(oldValue)
+	itemList[itemId] = newValue
+	setItems(itemList)
+}
 
 
 // remove item on delete click
@@ -103,7 +113,6 @@ $("#taskInput").on("keypress", function(e) {
 	if(e.which == 13
 		&& $(this).val() != ""
 		&& !e.shiftKey) {
-
 
 		let textValue = $(this).val()
 
