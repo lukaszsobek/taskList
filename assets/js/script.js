@@ -1,7 +1,7 @@
 "use strict"
 
 const LocalKey = "lukaszsobek_taskList_application"
-const varStore = {}
+const state = {}
 
 // enable autosizing textareas
 autosize($('textarea'));
@@ -22,26 +22,34 @@ const sortable = new Sortable.create(el, {
 	}
 );
 
+// updates page title with item count
+function updateTitleCount(itemList) {
+	state.itemCount = itemList.length
+	$("#headerCount")[0].textContent = " (" + state.itemCount + ")"
+}
+
 
 // returns all items from local storage or []
 function getItems() {
 	let itemList = localStorage.getItem(LocalKey)
 	itemList = itemList ? JSON.parse(itemList) : []
+	updateTitleCount(itemList)
 	return itemList
 }
 
 
 // saves a list of items to the local storage
 function setItems(itemList) {
-	itemList = JSON.stringify(itemList)
-	localStorage.setItem(LocalKey,itemList)
+	const itemListStr = JSON.stringify(itemList)
+	localStorage.setItem(LocalKey,itemListStr)
+	updateTitleCount(itemList)
 }
 
 
 // populate list with items from local storage
 function loadLocalStore() {
-	let itemList = getItems()
-	itemList.map(function(item) {
+	const itemList = getItems()
+	itemList.forEach(function(item) {
 		item = item.replace(/(?:\r\n|\r|\n)/g, '<br />');
 		$("ul").append("<li><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
 	})
@@ -72,7 +80,7 @@ $("ul").on("dblclick", "li", function() {
 	txtArea.addClass("itemEdit")
 	txtArea.val(selectedDiv.textContent)
 	selectedDiv.replaceWith(txtArea[0])
-	varStore.textContent = selectedDiv.textContent
+	state.textContent = selectedDiv.textContent
 	autosize(txtArea[0])
 	txtArea[0].focus()
 })
@@ -82,7 +90,7 @@ $("ul").on("blur", "textarea", function(e) {
 	const txtArea = e.target
 	const theDiv = $("<div />")
 	theDiv.addClass("textContent")
-	updateValue(varStore.textContent, txtArea.value)
+	updateValue(state.textContent, txtArea.value)
 	theDiv.text(txtArea.value)
 	txtArea.replaceWith(theDiv[0])
 	

@@ -29,6 +29,10 @@ header {
 	text-align: center;
 	}
 
+#headerCount {
+	opacity: 0.5;
+	}
+
 #taskInput {
 	box-sizing: border-box;
 	resize: none;
