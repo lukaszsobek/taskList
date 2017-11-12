@@ -62,14 +62,15 @@ li {
 	user-select: none;          /* Likely future */
 	display: flex;
 	justify-content: space-between;
-	padding-left: 20px;
 	color: #666;
 	font-weight: bold;
 	}
 
 li .textContent {
 	line-height: 30px;
-	margin: 20px 0 20px 0;
+	margin: 20px 0 30px 0;
+	width: 100%;
+	padding: 0 20px;
 	}
 
 li:nth-child(odd) {		background-color: #eee; }
@@ -80,14 +81,11 @@ li .deleteButton {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
 	align-self: stretch;
-
 	color: #fff;
 	background-color: #900;
 	font-weight: bold;
 	width: 0;
-	padding: 10px;
 	text-align: center;
 	transition: 0.2s linear;
 	visibility: hidden;
@@ -99,10 +97,23 @@ li:last-child .deleteButton {
 	border-radius: 0 0 10px 0;
 	}
 
+li:last-child textarea {
+	border-radius: 0 0 10px 10px;
+	}
+
+li textarea + .deleteButton,
+li:hover textarea + .deleteButton {
+	width: 0;
+	visibility: hidden;
+	opacity: 0;
+	padding: 0;
+}
+
 li:hover .deleteButton {
 	width: 40px;
 	visibility: visible;
 	opacity: 0.5;
+	padding: 10px;
 	}
 
 li:hover .deleteButton:hover {
@@ -118,5 +129,4 @@ li:hover .deleteButton:hover {
 	width: 100%;
 	line-height: 30px;
 	padding: 20px;
-	margin-left: -20px;
 	}
