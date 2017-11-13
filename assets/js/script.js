@@ -22,29 +22,6 @@ const sortable = new Sortable.create(el, {
 	}
 );
 
-// updates page title with item count
-function updateTitleCount(itemList) {
-	state.itemCount = itemList.length
-	$("#headerCount")[0].textContent = " (" + state.itemCount + ")"
-}
-
-
-// returns all items from local storage or []
-function getItems() {
-	let itemList = localStorage.getItem(LocalKey)
-	itemList = itemList ? JSON.parse(itemList) : []
-	updateTitleCount(itemList)
-	return itemList
-}
-
-
-// saves a list of items to the local storage
-function setItems(itemList) {
-	const itemListStr = JSON.stringify(itemList)
-	localStorage.setItem(LocalKey,itemListStr)
-	updateTitleCount(itemList)
-}
-
 
 // populate list with items from local storage
 function loadLocalStore() {
@@ -56,17 +33,81 @@ function loadLocalStore() {
 }
 
 
-// save item to local storage
-function saveItem(item) {
-	let itemList = getItems()
+// returns all items from local storage or []
+function getItems() {
+
+	const emptyList = {
+		props: {},
+		lists: [
+			{ name: "default", items: ["test"] }
+		]	
+	}
+
+	const appStore = localStorage.getItem(LocalKey)
+	const appStoreObj = JSON.parse(appStore)
+
+	const itemList = appStoreObj.lists[0].items
+		? appStoreObj.lists[0].items
+		: emptyList.lists[0].items
+
+	updateTitleCount(itemList)
+	return state.itemList = itemList
+}
+
+
+// updates page title with item count
+function updateTitleCount(itemList) {
+	state.itemCount = itemList.length
+	$("#headerCount")[0].textContent = " (" + state.itemCount + ")"
+}
+
+
+// add new item to the ul list 
+$("#taskInput").on("keypress", function(e) {
+	if(e.which == 13
+		&& $(this).val() != ""
+		&& !e.shiftKey) {
+
+		let textValue = $(this).val()
+		addItem(textValue)
+		$(this).val("")
+
+		e.preventDefault() // otherwise the enter ends up in the textarea
+		autosize.update($('#taskInput'))
+
+		textValue = textValue.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
+	} 
+})
+
+
+// adds item to itemList
+function addItem(item) {
+	let itemList = state.itemList
 	itemList.push(item)
 	setItems(itemList)
 }
 
 
+// saves the list of items to the local storage
+function setItems(itemList) {
+
+	const saveList = {
+		props: {},
+		lists: [
+			{ name: "default", items: itemList }
+		]	
+	}	
+
+	const saveListStr = JSON.stringify(saveList)
+	localStorage.setItem(LocalKey,saveListStr)
+	updateTitleCount(itemList)
+}
+
+
 // delete an item
 function deleteItem(searchText) {
-	let itemList = getItems()
+	let itemList = state.itemList
 	let theKey = itemList.indexOf(searchText)
 	itemList.splice(theKey,1)
 	setItems(itemList)
@@ -85,6 +126,7 @@ $("ul").on("dblclick", "li", function() {
 	txtArea[0].focus()
 })
 
+
 // handle returning to normal state after edit
 $("ul").on("blur", "textarea", function(e) {
 	const txtArea = e.target
@@ -93,13 +135,12 @@ $("ul").on("blur", "textarea", function(e) {
 	updateValue(state.textContent, txtArea.value)
 	theDiv.text(txtArea.value)
 	txtArea.replaceWith(theDiv[0])
-	
 })
 
 
 // update item
 function updateValue(oldValue,newValue) {
-	const itemList = getItems()
+	let itemList = state.itemList
 	const itemId = itemList.indexOf(oldValue)
 	itemList[itemId] = newValue
 	setItems(itemList)
@@ -113,25 +154,6 @@ $("ul").on("click", ".deleteButton", function(e) {
 		$(this).remove()
 	})
 	e.stopPropagation()
-})
-
-
-// add new item to the ul list 
-$("#taskInput").on("keypress", function(e) {
-	if(e.which == 13
-		&& $(this).val() != ""
-		&& !e.shiftKey) {
-
-		let textValue = $(this).val()
-
-		saveItem(textValue)
-		$(this).val("")
-		e.preventDefault() // otherwise the enter ends up in the textarea
-		autosize.update($('#taskInput'))
-		textValue = textValue.replace(/(?:\r\n|\r|\n)/g, '<br />');
-		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
-
-	} 
 })
 
 
