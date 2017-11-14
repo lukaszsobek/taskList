@@ -115,7 +115,11 @@ function deleteItem(searchText) {
 
 
 // edit item
-$("ul").on("dblclick", "li", function() {
+$("ul").on("dblclick", "li", function(e) {
+	if(e.target.className == "itemEdit") {
+		return
+	}
+
 	const selectedDiv = $(this).find("div.textContent")[0]
 	const txtArea = $("<textarea />")
 	txtArea.addClass("itemEdit")
