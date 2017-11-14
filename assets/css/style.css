@@ -129,4 +129,9 @@ li:hover .deleteButton:hover {
 	width: 100%;
 	line-height: 30px;
 	padding: 20px;
+	outline: none;
 	}
+
+.itemEdit:focus {
+	border: 3px solid #B8BAC8;
+}
