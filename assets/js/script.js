@@ -9,6 +9,7 @@ autosize($('textarea'));
 // enable drag & drop items
 const el = document.getElementById('items');
 const sortable = new Sortable.create(el, {
+	filter: "textarea",
 	onEnd: (e) => {
 
 		const newList = []
