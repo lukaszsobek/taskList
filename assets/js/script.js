@@ -92,7 +92,6 @@ function addItem(item) {
 
 // saves the list of items to the local storage
 function setItems(itemList) {
-
 	const saveList = {
 		props: {},
 		lists: [
