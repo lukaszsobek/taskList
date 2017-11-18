@@ -136,3 +136,32 @@ li:hover .deleteButton:hover {
 .itemEdit:focus {
 	border: 3px solid #B8BAC8;
 }
+
+
+@media screen and (max-width: 600px) {
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		max-width: 100%;
+		margin: 0;
+		}
+
+	header,
+	#taskInput,
+	li:last-child,
+	li:last-child .deleteButton {
+		border-radius: 0;
+	}
+
+	li .deleteButton {
+		display: none;
+		}
+
+	li:hover .deleteButton {
+		display: block;
+	}
+}
