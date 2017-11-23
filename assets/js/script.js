@@ -18,7 +18,7 @@ const sortable = new Sortable.create(el, {
 			newList.push(item.textContent)
 		})
 		setItems(newList)
-		
+
 		}
 	}
 );
@@ -27,6 +27,9 @@ const sortable = new Sortable.create(el, {
 // populate list with items from local storage
 function loadLocalStore() {
 	const itemList = getItems()
+
+	if (itemList.length < 1) return
+
 	itemList.forEach(function(item) {
 		item = item.replace(/(?:\r\n|\r|\n)/g, '<br />');
 		$("ul").append("<li><div class='textContent'>" + item + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
@@ -40,16 +43,15 @@ function getItems() {
 	const emptyList = {
 		props: {},
 		lists: [
-			{ name: "default", items: ["test"] }
-		]	
+			{ name: "default", items: [] }
+		]
 	}
 
 	const appStore = localStorage.getItem(LocalKey)
-	const appStoreObj = JSON.parse(appStore)
+		? JSON.parse(appStore)
+		: emptyList
 
-	const itemList = appStoreObj.lists[0].items
-		? appStoreObj.lists[0].items
-		: emptyList.lists[0].items
+	const itemList = appStore.lists[0].items
 
 	updateTitleCount(itemList)
 	return state.itemList = itemList
@@ -63,7 +65,7 @@ function updateTitleCount(itemList) {
 }
 
 
-// add new item to the ul list 
+// add new item to the ul list
 $("#taskInput").on("keypress", function(e) {
 	if(e.which == 13
 		&& $(this).val() != ""
@@ -78,7 +80,7 @@ $("#taskInput").on("keypress", function(e) {
 
 		textValue = textValue.replace(/(?:\r\n|\r|\n)/g, '<br />');
 		$("ul").append("<li><div class='textContent'>" + textValue + "</div><div class='deleteButton'><i class='fa fa-trash-o' aria-hidden='true'></i></div></li>")
-	} 
+	}
 })
 
 
@@ -96,8 +98,8 @@ function setItems(itemList) {
 		props: {},
 		lists: [
 			{ name: "default", items: itemList }
-		]	
-	}	
+		]
+	}
 
 	const saveListStr = JSON.stringify(saveList)
 	localStorage.setItem(LocalKey,saveListStr)
