@@ -43,13 +43,11 @@ function getItems() {
 	const emptyList = {
 		props: {},
 		lists: [
-			{ name: "default", items: [] }
+			{ name: "taskList", items: [] }
 		]
 	}
-
-	const appStore = localStorage.getItem(LocalKey)
-		? JSON.parse(appStore)
-		: emptyList
+	const locStor = localStorage.getItem(LocalKey)
+	const appStore = locStor ? JSON.parse(locStor) : emptyList
 
 	const itemList = appStore.lists[0].items
 
